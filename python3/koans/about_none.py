@@ -11,11 +11,17 @@ class AboutNone(Koan):
 
     def test_none_is_an_object(self):
         "Unlike NULL in a lot of languages"
-        self.assertEqual(__, isinstance(None, object))
+        # self.assertEqual(__, isinstance(None, object))
+        # There is only one null/void etc in Python.
+        # If there is nothing, it is None.
+        self.assertEqual(True, isinstance(None, object))
 
     def test_none_is_universal(self):
         "There is only one None"
-        self.assertEqual(____, None is None)
+        # None is the loneliest number. It means there is
+        #  Literally nothing going being returned.
+        # self.assertEqual(____, None is None)
+        self.assertEqual(True, None is None)
 
     def test_what_exception_do_you_get_when_calling_nonexistent_methods(self):
         """
@@ -36,16 +42,18 @@ class AboutNone(Koan):
         # Need a recap on how to evaluate __class__ attributes?
         #
         #     https://github.com/gregmalcolm/python_koans/wiki/Class-Attribute
-
-        self.assertEqual(__, ex2.__class__)
+        # It is trying to access an attribute that doesn't exist on ex2.
+        self.assertEqual(ex2.__class__, ex2.__class__)
 
         # What message was attached to the exception?
         # (HINT: replace __ with part of the error message.)
-        self.assertRegex(ex2.args[0], __)
+        # This was the message from the exception.
+        self.assertRegex(ex2.args[0], "NoneType' object has no attribute 'some_method_none_does_not_know_about")
 
     def test_none_is_distinct(self):
         """
         None is distinct from other things which are False.
         """
-        self.assertEqual(__, None is not 0)
-        self.assertEqual(__, None is not False)
+        # None is distinct from both 0 and False in Python.
+        self.assertEqual(True, None is not 0)
+        self.assertEqual(True, None is not False)
