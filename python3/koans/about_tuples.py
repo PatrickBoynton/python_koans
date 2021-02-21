@@ -6,7 +6,8 @@ from runner.koan import *
 class AboutTuples(Koan):
     def test_creating_a_tuple(self):
         count_of_three =  (1, 2, 5)
-        self.assertEqual(__, count_of_three[2])
+        # 5 is the 2nd index.
+        self.assertEqual(5, count_of_three[2])
 
     def test_tuples_are_immutable_so_item_assignment_is_not_possible(self):
 
@@ -18,12 +19,13 @@ class AboutTuples(Koan):
 
         # Note, assertRegex() uses regular expression pattern matching,
         # so you don't have to copy the whole message.
-
-        self.assertRegex(msg, __)
+        # This is the error message that is given when the error is run.
+        self.assertRegex(msg, "'tuple' object does not support item assignment")
 
     def test_tuples_are_immutable_so_appending_is_not_possible(self):
         count_of_three =  (1, 2, 5)
-        with self.assertRaises(___): count_of_three.append("boom")
+        # Took me awhile, but it was asking for the actual object of AttributeError.
+        with self.assertRaises(AttributeError): count_of_three.append("boom")
 
         # Tuples are less flexible than lists, but faster.
 
@@ -34,26 +36,30 @@ class AboutTuples(Koan):
         list_count.append("boom")
         count_of_three = tuple(list_count)
 
-        self.assertEqual(__, count_of_three)
+        self.assertEqual((1, 2, 5, "boom"), count_of_three)
 
     def test_tuples_of_one_look_peculiar(self):
-        self.assertEqual(__, (1).__class__)
-        self.assertEqual(__, (1,).__class__)
-        self.assertEqual(__, ("I'm a tuple",).__class__)
-        self.assertEqual(__, ("Not a tuple").__class__)
+        # These are all the types of the objects.
+        self.assertEqual(int, (1).__class__)
+        self.assertEqual(tuple, (1,).__class__)
+        self.assertEqual(tuple, ("I'm a tuple",).__class__)
+        self.assertEqual(str, ("Not a tuple").__class__)
 
     def test_tuple_constructor_can_be_surprising(self):
-        self.assertEqual(__, tuple("Surprise!"))
+        # Calling tuple on a string will make a tuple of characters.
+        self.assertEqual(("S", "u", "r", "p", "r", "i", "s", "e", "!"), tuple("Surprise!"))
 
     def test_creating_empty_tuples(self):
-        self.assertEqual(__ , ())
-        self.assertEqual(__ , tuple()) #Sometimes less confusing
+        # Empty () make a tupple.
+        self.assertEqual((), ())
+        self.assertEqual((), tuple()) #Sometimes less confusing
 
     def test_tuples_can_be_embedded(self):
         lat = (37, 14, 6, 'N')
         lon = (115, 48, 40, 'W')
         place = ('Area 51', lat, lon)
-        self.assertEqual(__, place)
+        # This is one way you can append a tuple.
+        self.assertEqual(('Area 51', (37, 14, 6, 'N'), (115, 48, 40, 'W')), place)
 
     def test_tuples_are_good_for_representing_records(self):
         locations = [
@@ -62,6 +68,7 @@ class AboutTuples(Koan):
         ]
 
         locations.append( ("Cthulu", (26, 40, 1, 'N'), (70, 45, 7, 'W')) )
-
-        self.assertEqual(__, locations[2][0])
-        self.assertEqual(__, locations[0][1][2])
+        # Cthulu is the location at index [2][0]
+        self.assertEqual("Cthulu", locations[2][0])
+        # This is an individual number inside the first index tuple.
+        self.assertEqual(15.56, locations[0][1][2])
